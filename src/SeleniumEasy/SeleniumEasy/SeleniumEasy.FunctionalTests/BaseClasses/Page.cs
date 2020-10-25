@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SeleniumEasy.FunctionalTests.Extensions;
 using System;
 
 namespace SeleniumEasy.FunctionalTests.BaseClasses
@@ -20,13 +21,23 @@ namespace SeleniumEasy.FunctionalTests.BaseClasses
             EnsurePageLoaded();
         }
 
-        private void EnsurePageLoaded()
+        public void EnsurePageLoaded()
         {
             bool pageLoaded = this.driver.Url == this.pageUrl && this.driver.Title == this.pageTitle;
             if (!pageLoaded)
             {
                 throw new Exception($"Failed to load page. Page URL = '{this.driver.Url}' Page Source: \r\n {this.driver.PageSource}");
             }
+        }
+
+        public bool AlertIsPresent()
+        {
+            return this.driver.AlertIsPresent();
+        }
+
+        public IAlert SwitchToAlert()
+        {
+            return this.driver.SwitchTo().Alert();
         }
     }
 }

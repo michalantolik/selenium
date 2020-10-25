@@ -22,5 +22,23 @@ namespace SeleniumEasy.FunctionalTests.Extensions
 
             return hasElement;
         }
+
+        /// <summary>
+        /// Check whether alert is currently displayed within the current IWebDriver context
+        /// </summary>
+        /// <param name="driver">Current IWebDriver context</param>
+        /// <returns>True if alert is currently displayed</returns>
+        public static bool AlertIsPresent(this IWebDriver driver)
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }
+            catch (NoAlertPresentException)
+            {
+                return false;
+            }
+        }
     }
 }
