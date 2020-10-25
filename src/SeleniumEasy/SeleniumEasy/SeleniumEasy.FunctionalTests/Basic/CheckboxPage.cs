@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SeleniumEasy.FunctionalTests.BaseClasses;
 using SeleniumEasy.FunctionalTests.Extensions;
 using System;
 using System.Collections.Generic;
@@ -6,17 +7,12 @@ using System.Linq;
 
 namespace SeleniumEasy.FunctionalTests.Basic
 {
-    public class CheckboxPage
+    public class CheckboxPage : Page
     {
-        private IWebDriver driver;
+        protected override string pageUrl => "https://www.seleniumeasy.com/test/basic-checkbox-demo.html";
+        protected override string pageTitle => "Selenium Easy - Checkbox demo for automation using selenium";
 
-        private const string PageUrl = "https://www.seleniumeasy.com/test/basic-checkbox-demo.html";
-        private const string PageTitle = "Selenium Easy - Checkbox demo for automation using selenium";
-
-        public CheckboxPage(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
+        public CheckboxPage(IWebDriver driver) : base(driver) { }
 
 
         #region Elements
@@ -39,12 +35,6 @@ namespace SeleniumEasy.FunctionalTests.Basic
 
 
         #region Interaction
-
-        public void NavigateTo()
-        {
-            this.driver.Navigate().GoToUrl(PageUrl);
-            EnsurePageLoaded();
-        }
 
         public void ClickSingleCheckbox()
         {
@@ -101,15 +91,6 @@ namespace SeleniumEasy.FunctionalTests.Basic
         public void ClickCheckAllUncheckAllButton()
         {
             this.checkAllUncheckAllButton.Click();
-        }
-
-        private void EnsurePageLoaded()
-        {
-            bool pageLoaded = this.driver.Url == PageUrl && this.driver.Title == PageTitle;
-            if (!pageLoaded)
-            {
-                throw new Exception($"Failed to load page. Page URL = '{this.driver.Url}' Page Source: \r\n {this.driver.PageSource}");
-            }
         }
 
         #endregion Interaction

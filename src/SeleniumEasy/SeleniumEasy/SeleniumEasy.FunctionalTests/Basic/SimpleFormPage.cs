@@ -1,19 +1,14 @@
 ﻿using OpenQA.Selenium;
-using System;
+using SeleniumEasy.FunctionalTests.BaseClasses;
 
 namespace SeleniumEasy.FunctionalTests.Basic
 {
-    public class SimpleFormPage
+    public class SimpleFormPage : Page
     {
-        private IWebDriver driver;
+        protected override string pageUrl => "https://www.seleniumeasy.com/test/basic-first-form-demo.html";
+        protected override string pageTitle => "Selenium Easy Demo - Simple Form to Automate using Selenium";
 
-        private const string PageUrl = "https://www.seleniumeasy.com/test/basic-first-form-demo.html";
-        private const string PageTitle = "Selenium Easy Demo - Simple Form to Automate using Selenium";
-
-        public SimpleFormPage(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
+        public SimpleFormPage(IWebDriver driver) : base(driver) { }
 
 
         #region Elements
@@ -31,12 +26,6 @@ namespace SeleniumEasy.FunctionalTests.Basic
 
 
         #region Interaction
-
-        public void NavigateTo()
-        {
-            this.driver.Navigate().GoToUrl(PageUrl);
-            EnsurePageLoaded();
-        }
 
         public void SetMessage(string message)
         {
@@ -71,15 +60,6 @@ namespace SeleniumEasy.FunctionalTests.Basic
         public string GetTotalValueText()
         {
             return this.totalValueText.Text;
-        }
-
-        private void EnsurePageLoaded()
-        {
-            bool pageLoaded = this.driver.Url == PageUrl && this.driver.Title == PageTitle;
-            if(!pageLoaded)
-            {
-                throw new Exception($"Failed to load page. Page URL = '{this.driver.Url}' Page Source: \r\n {this.driver.PageSource}");
-            }
         }
 
         #endregion Interaction
